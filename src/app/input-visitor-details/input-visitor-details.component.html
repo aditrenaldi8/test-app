@@ -1,0 +1,31 @@
+<div>
+  <!-- <form id="visitor-form" [formGroup]="visitorForm">
+    <input class="form-control" type="text" formControlName="fullName" id="fullName" maxlength="35" />
+    
+    <div *ngIf="visitorForm.controls['fullName'].touched && visitorForm.controls['fullName'].errors?.required">
+      Please enter Fullname
+    </div>
+  </form> -->
+  <!-- <form [formGroup]="visitorForm">
+    <mat-form-field>
+        <input matInput placeholder="FullName" formControlName="fullName">
+        <mat-error *ngIf="visitorForm.get('fullName').invalid"> 
+            <span *ngIf="visitorForm.get('fullName').hasError('required')">You must enter a value </span>
+        </mat-error>
+    </mat-form-field>
+  </form> -->
+
+  <mat-card>
+    <mat-card-title>Actions Buttons</mat-card-title>
+    <mat-card-subtitle>Start</mat-card-subtitle>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-radio-group>
+    <mat-radio-button value="1">Male</mat-radio-button>
+    <mat-radio-button value="2">Female</mat-radio-button>
+ </mat-radio-group>
+</div>
