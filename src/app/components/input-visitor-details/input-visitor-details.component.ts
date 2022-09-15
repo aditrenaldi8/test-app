@@ -24,24 +24,7 @@ export class InputVisitorDetailsComponent implements OnInit {
   visitorListTemp: Array<Visitor>;
   now: any;
 
-  poliList: Array<any> = [
-    {
-      code: 'A',
-      name: 'Poli Umum'
-    },
-    {
-      code: 'B',
-      name: 'Poli Gigi'
-    },
-    {
-      code: 'C',
-      name: 'Poli Mata'
-    },
-    {
-      code: 'D',
-      name: 'Poli THT'
-    }
-  ]
+  poliList: Array<any> = this.appService.poliList;
 
   ngOnInit(): void {
     this.initForm();
@@ -104,6 +87,6 @@ export class InputVisitorDetailsComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(this.MyDialog);
-}
+  }
 
 }

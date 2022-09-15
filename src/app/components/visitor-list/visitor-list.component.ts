@@ -69,8 +69,6 @@ export class VisitorListComponent implements OnInit {
     let identityNumber = this.form.get('identityNumber').value
     let date = this.form.get('date').value
     let formatedDate = date && date._i ? (date._i.month+1) +'/'+ date._i.date+'/' + date._i.year : date.toLocaleDateString()
-    console.log(date)
-    console.log(formatedDate)
 
     this.filteredData = this.data.filter(item => { 
       return (
