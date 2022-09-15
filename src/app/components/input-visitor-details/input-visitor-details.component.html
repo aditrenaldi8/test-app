@@ -11,9 +11,9 @@
 
             <mat-form-field appearance="outline" style="width:100%;">
               <mat-label>Nomor Identitas / Member</mat-label>
-              <input matInput placeholder="Nomor Identitas / Member" formControlName="IdentityNumber">
-              <mat-error *ngIf="visitorForm.get('IdentityNumber').invalid"> 
-                <span *ngIf="visitorForm.get('IdentityNumber').hasError('validateWhitespace')">Nomor Identitas / Member harus diisi </span>
+              <input matInput placeholder="Nomor Identitas / Member" formControlName="identityNumber">
+              <mat-error *ngIf="visitorForm.get('identityNumber').invalid"> 
+                <span *ngIf="visitorForm.get('identityNumber').hasError('validateWhitespace')">Nomor Identitas / Member harus diisi </span>
               </mat-error>
             </mat-form-field>
 

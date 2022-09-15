@@ -1,1 +1,65 @@
-<p>visitor-list works!</p>
+<div>
+  <mat-card>
+    <mat-card-title>Daftar Pasien</mat-card-title>
+    <mat-card-subtitle>Berikut Daftar Pasien pada tanggal: {{now}}</mat-card-subtitle>
+    
+    <mat-card-content>
+      <form [formGroup]="form" [style.fontSize.px]="12">
+        <mat-form-field appearance="outline" style="margin-right:5%;width:30%;">
+          <mat-label>Nomor Identitas / Member</mat-label>
+          <input matInput placeholder="Nomor Identitas/Member" formControlName="identityNumber">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="margin-right:5%;width:30%;">
+          <input matInput placeholder="Nama Pasien" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width:30%;">
+          <input matInput [matDatepicker]="picker" placeholder="Tanggal" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+
+      <table mat-table [dataSource]="filteredData" class="mat-elevation-z8" *ngIf="data.length > 0">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="identityNumber">
+          <th mat-header-cell *matHeaderCellDef> Nomor Identitas / Member </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{element.identityNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nama Pasien </th>
+          <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> Nomor Telepon </th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="poli">
+          <th mat-header-cell *matHeaderCellDef> Poliklinik </th>
+          <td mat-cell *matCellDef="let element">
+            <span> {{element.poli.name}} </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef> Waktu Pendaftaran </th>
+          <td mat-cell *matCellDef="let element">
+            <span> {{ element.timestamp }} </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row [ngClass]="row.has_kuis ? 'canClick' : cantClick" (click)="getData(row)"
+          *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

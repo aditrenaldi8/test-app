@@ -1,6 +1,6 @@
 export class Visitor {
   fullName: string;
-  IdentityNumber: string;
+  identityNumber: string;
   phone: string;
   birthDate: string;
   address: string;
@@ -8,11 +8,11 @@ export class Visitor {
   reason: string;
   complaint: string;
   printed: Boolean;
-  timestamp: String
+  timestamp: string
 
   constructor(data: any){
     this.fullName = data.fullName || ''
-    this.IdentityNumber = data.IdentityNumber || ''
+    this.identityNumber = data.identityNumber || ''
     this.phone = data.phone || ''
     this.birthDate = data.birthDate || ''
     this.address = data.address || ''

@@ -5,7 +5,6 @@ import { whitespaceValidator } from "../../validators/whitespace.validator"
 import { MatDialog} from "@angular/material/dialog";
 import { AppService } from "../../service/app.service";
 import { Visitor } from "../../model/visitor";
-import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 
 @Component({
   selector: 'app-input-visitor-details',
@@ -57,7 +56,7 @@ export class InputVisitorDetailsComponent implements OnInit {
   initForm () {
     this.visitorForm = new FormGroup({
       fullName: new FormControl('',[whitespaceValidator, Validators.minLength(3)]),
-      IdentityNumber: new FormControl('',[whitespaceValidator]),
+      identityNumber: new FormControl('',[whitespaceValidator]),
       phone: new FormControl('', [Validators.required, numberValidator, Validators.minLength(8), Validators.maxLength(12)]),
       birthDate: new FormControl('', [Validators.required]),
       address: new FormControl('', [whitespaceValidator]),
@@ -71,8 +70,8 @@ export class InputVisitorDetailsComponent implements OnInit {
     return data.date +'/' + (data.month+1) +'/' + data.year
   }
 
-  getPoli (data : String): Object {
-    let value = this.poliList.filter(item => item.code === data)
+  getPoli (data : string): Object {
+    let value = this.poliList.find(item => item.code === data)
     return value
   }
 
@@ -83,7 +82,7 @@ export class InputVisitorDetailsComponent implements OnInit {
       })
     } else {
       let data = new Visitor({});
-      data.IdentityNumber = this.visitorForm.get('IdentityNumber').value;
+      data.identityNumber = this.visitorForm.get('identityNumber').value;
       data.fullName = this.visitorForm.get('fullName').value;
       data.phone = this.visitorForm.get('phone').value;
       data.address = this.visitorForm.get('address').value;
@@ -96,6 +95,8 @@ export class InputVisitorDetailsComponent implements OnInit {
       this.visitorListTemp.push(data);
 
       this.appService.updateVisitorList(this.visitorListTemp);
+
+      localStorage.setItem('visitor', JSON.stringify(this.visitorListTemp));
 
       this.openDialog()
     }
