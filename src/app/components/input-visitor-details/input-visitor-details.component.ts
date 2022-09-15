@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, Validators, FormControl, } from "@angular/forms";
-import { numberValidator } from "../validators/number.validator"
-import { whitespaceValidator } from "../validators/whitespace.validator"
+import { numberValidator } from "../../validators/number.validator"
+import { whitespaceValidator } from "../../validators/whitespace.validator"
 import { MatDialog} from "@angular/material/dialog";
-import { AppService } from "../service/app.service";
-import { Visitor } from "../model/visitor";
+import { AppService } from "../../service/app.service";
+import { Visitor } from "../../model/visitor";
 import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 
 @Component({
