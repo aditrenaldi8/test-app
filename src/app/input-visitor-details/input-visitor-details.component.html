@@ -1,31 +1,112 @@
-<div>
-  <!-- <form id="visitor-form" [formGroup]="visitorForm">
-    <input class="form-control" type="text" formControlName="fullName" id="fullName" maxlength="35" />
-    
-    <div *ngIf="visitorForm.controls['fullName'].touched && visitorForm.controls['fullName'].errors?.required">
-      Please enter Fullname
-    </div>
-  </form> -->
-  <!-- <form [formGroup]="visitorForm">
-    <mat-form-field>
-        <input matInput placeholder="FullName" formControlName="fullName">
-        <mat-error *ngIf="visitorForm.get('fullName').invalid"> 
-            <span *ngIf="visitorForm.get('fullName').hasError('required')">You must enter a value </span>
-        </mat-error>
-    </mat-form-field>
-  </form> -->
-
+<div class="input-visitor">
   <mat-card>
-    <mat-card-title>Actions Buttons</mat-card-title>
-    <mat-card-subtitle>Start</mat-card-subtitle>
+    <mat-card-title>Input Data Pasien</mat-card-title>
+    <mat-card-subtitle>Silahkan input data pasien dengan lengkap</mat-card-subtitle>
+    
+    <mat-card-content>
+      <form [formGroup]="visitorForm">
+        <div fxLayout="row" fxLayout.xs="column" fxFlexFill>
+          <div class="visitor-form-wrap" fxFlex="50%">
+            <h1> Data Pribadi </h1>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Nomor Identitas / Member</mat-label>
+              <input matInput placeholder="Nomor Identitas / Member" formControlName="IdentityNumber">
+              <mat-error *ngIf="visitorForm.get('IdentityNumber').invalid"> 
+                <span *ngIf="visitorForm.get('IdentityNumber').hasError('validateWhitespace')">Nomor Identitas / Member harus diisi </span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Nama Lengkap Pasien</mat-label>
+              <input matInput placeholder="Nama Lengkap Pasien" formControlName="fullName">
+              <mat-error *ngIf="visitorForm.get('fullName').invalid"> 
+                <span *ngIf="visitorForm.get('fullName').hasError('validateWhitespace')">Nama Lengkap Pasien harus diisi </span>
+                <span *ngIf="!visitorForm.get('fullName').hasError('validateWhitespace') && visitorForm.get('phone').hasError('minlength')">Nama Lengkap Pasien minimal {{ visitorForm.get('phone').errors.minlength.requiredLength }} angka </span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Tanggal Lahir</mat-label>
+              <input matInput [matDatepicker]="picker" [max]="now" formControlName="birthDate">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="visitorForm.get('birthDate').invalid"> 
+                <span *ngIf="visitorForm.get('birthDate').hasError('required')">Tanggal Lahir harus diisi </span>
+              </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Nomor Telepon Pasien</mat-label>
+              <input matInput placeholder="Usia Pasien" formControlName="phone">
+              <mat-error *ngIf="visitorForm.get('phone').invalid"> 
+                <span *ngIf="visitorForm.get('phone').hasError('required')">Nomor Telepon Pasien harus diisi </span>
+                <span *ngIf="!visitorForm.get('phone').hasError('required') && visitorForm.get('phone').hasError('validateNumber')">Nomor Telepon Pasien harus angka </span>
+                <span *ngIf="!visitorForm.get('phone').hasError('required') && !visitorForm.get('phone').hasError('validateNumber') && visitorForm.get('phone').hasError('minlength')">Nomor Telepon minimal {{ visitorForm.get('phone').errors.minlength.requiredLength }} angka </span>
+                <span *ngIf="!visitorForm.get('phone').hasError('required') && !visitorForm.get('phone').hasError('validateNumber') && visitorForm.get('phone').hasError('maxlength')">Nomor Telepon maksimal {{ visitorForm.get('phone').errors.maxlength.requiredLength }} angka </span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Alamat Pasien</mat-label>
+              <textarea matInput placeholder="Alamat Pasien" formControlName="address" rows="5"></textarea>
+              <mat-error *ngIf="visitorForm.get('address').invalid"> 
+                <span *ngIf="visitorForm.get('address').hasError('validateWhitespace')">Alamat Pasien harus diisi </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="visitor-form-wrap" fxFlex="50%">
+            <h1>Daftar Antrian</h1>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Poliklinik</mat-label>
+              <mat-select formControlName="poli">
+                <mat-option *ngFor="let item of poliList" [value]="item.code">
+                  {{item.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="visitorForm.get('poli').invalid"> 
+                <span *ngIf="visitorForm.get('poli').hasError('required')">Poliklinik belum dipilih</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Alasan Pendaftaran</mat-label>
+              <textarea matInput placeholder="contoh: Daily Checkup, Sakit dll" formControlName="reason" rows="5"></textarea>
+              <mat-error *ngIf="visitorForm.get('reason').invalid"> 
+                <span *ngIf="visitorForm.get('reason').hasError('validateWhitespace')">Alasan Pendaftaran harus diisi </span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Keluhan Pasien</mat-label>
+              <textarea matInput placeholder="contoh: Sakit perut sudah 5 hari tidak sembuh dll" formControlName="complaint" rows="5"></textarea>
+              <mat-error *ngIf="visitorForm.get('complaint').invalid"> 
+                <span *ngIf="visitorForm.get('complaint').hasError('validateWhitespace')">Keluhan harus diisi </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    
+    </mat-card-content>
+
     <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      <div class="visitor-form-button">
+        <button mat-raised-button color="primary" (click)="save()">Simpan</button>
+      </div>
     </mat-card-actions>
   </mat-card>
-  <br>
-  <mat-radio-group>
-    <mat-radio-button value="1">Male</mat-radio-button>
-    <mat-radio-button value="2">Female</mat-radio-button>
- </mat-radio-group>
+
+  <ng-template #dialog>
+    <h1 mat-dialog-title>Input Data Berhasil</h1>
+    <!-- <div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div> -->
+    <div mat-dialog-actions style="width:100%">
+      <button class="input-visitor-button" mat-raised-button mat-dialog-close color="primary">
+        Close
+      </button>
+    </div>
+  </ng-template>  
+
 </div>

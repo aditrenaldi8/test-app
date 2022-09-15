@@ -1,0 +1,13 @@
+.input-visitor {
+  min-height: 100vh;
+}
+.input-visitor-button {
+  width: 100% !important;
+  min-width: unset!important;
+}
+.visitor-form-wrap {
+  padding: 6px;
+}
+.visitor-form-button {
+  margin-left: 12px;
+}
