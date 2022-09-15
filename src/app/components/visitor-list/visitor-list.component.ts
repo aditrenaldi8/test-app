@@ -35,8 +35,11 @@ export class VisitorListComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(''),
       identityNumber: new FormControl(''),
-      date: new FormControl(new Date())
-    })
+      date: new FormControl()
+    });
+    setTimeout(()=> {
+      this.form.get('date').setValue(new Date());
+    }, 100)
   }
 
   valueChanges() {
@@ -65,7 +68,9 @@ export class VisitorListComponent implements OnInit {
     let name = this.form.get('name').value
     let identityNumber = this.form.get('identityNumber').value
     let date = this.form.get('date').value
-    let formatedDate = date && date._i ? (date._i.month+1) +'/'+ date._i.date+'/' + date._i.year : ''
+    let formatedDate = date && date._i ? (date._i.month+1) +'/'+ date._i.date+'/' + date._i.year : date.toLocaleDateString()
+    console.log(date)
+    console.log(formatedDate)
 
     this.filteredData = this.data.filter(item => { 
       return (
