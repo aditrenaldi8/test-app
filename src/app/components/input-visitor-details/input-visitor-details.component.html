@@ -38,11 +38,11 @@
             </mat-form-field>
   
             <mat-form-field appearance="outline" style="width:100%;">
-              <mat-label>Nomor Telepon Pasien</mat-label>
-              <input matInput placeholder="Usia Pasien" formControlName="phone">
+              <mat-label>Nomor Telepon</mat-label>
+              <input matInput placeholder="Nomo Telepon" formControlName="phone">
               <mat-error *ngIf="visitorForm.get('phone').invalid"> 
-                <span *ngIf="visitorForm.get('phone').hasError('required')">Nomor Telepon Pasien harus diisi </span>
-                <span *ngIf="!visitorForm.get('phone').hasError('required') && visitorForm.get('phone').hasError('validateNumber')">Nomor Telepon Pasien harus angka </span>
+                <span *ngIf="visitorForm.get('phone').hasError('required')">Nomor Telepon harus diisi </span>
+                <span *ngIf="!visitorForm.get('phone').hasError('required') && visitorForm.get('phone').hasError('validateNumber')">Nomor Telepon harus angka </span>
                 <span *ngIf="!visitorForm.get('phone').hasError('required') && !visitorForm.get('phone').hasError('validateNumber') && visitorForm.get('phone').hasError('minlength')">Nomor Telepon minimal {{ visitorForm.get('phone').errors.minlength.requiredLength }} angka </span>
                 <span *ngIf="!visitorForm.get('phone').hasError('required') && !visitorForm.get('phone').hasError('validateNumber') && visitorForm.get('phone').hasError('maxlength')">Nomor Telepon maksimal {{ visitorForm.get('phone').errors.maxlength.requiredLength }} angka </span>
               </mat-error>
