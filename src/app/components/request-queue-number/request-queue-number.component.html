@@ -1,1 +1,44 @@
-<p>request-queue-number works!</p>
+<div>
+  <mat-card>
+    <mat-card-title>Cetak Nomor Antrian</mat-card-title>
+    <mat-card-subtitle>Cetak nomor antrian berdasarkan poliklinik</mat-card-subtitle>
+    
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile class="queue-content" *ngFor="let item of poliList, let i=index">
+          <mat-card>
+            <mat-card-title>{{item.name}}</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content class="queue-m-custom">
+              <p class="queue-number" align="center">
+                {{item.code}} {{queueList[i]?.queueString}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div style="text-align: center;">
+                <button class="queue-button" mat-raised-button color="primary" (click)="print(i)">Cetak Nomor Antrian</button>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template #dialog>
+    <div class="queue-dialog">
+      <p class="queue-dialog-title">RS. Harapan Bersama</p>
+      <div class="queue-dialog-divider"></div>
+      <p class="queue-dialog-text">Nomor Antrian Anda</p>
+      <p class="queue-number" align="center">
+        {{selectedData.code}} {{selectedData.queueString}}
+      </p>
+      <img src="./assets/img/example.png" alt="barcode" class="queue-dialog-img">
+      <p class="queue-dialog-text">{{selectedData.datetime}}</p>
+      <div class="queue-dialog-divider"></div>
+      <p class="queue-dialog-text">Budayakan antri untuk kenyamanan bersama</p>
+      <p class="queue-dialog-text">Terima kasih atas kunjungan Anda</p>
+    </div>
+  </ng-template>  
+</div>
