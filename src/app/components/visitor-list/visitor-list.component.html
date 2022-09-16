@@ -5,19 +5,29 @@
     
     <mat-card-content>
       <form [formGroup]="form" [style.fontSize.px]="12">
-        <mat-form-field appearance="outline" style="margin-right:5%;width:30%;">
+        <mat-form-field appearance="outline" style="margin-right:4%;width:22%;">
           <mat-label>Nomor Identitas / Member</mat-label>
           <input matInput placeholder="Nomor Identitas/Member" formControlName="identityNumber">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" style="margin-right:5%;width:30%;">
+        <mat-form-field appearance="outline" style="margin-right:4%;width:22%;">
           <input matInput placeholder="Nama Pasien" formControlName="name">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" style="width:30%;">
+        <mat-form-field appearance="outline" style="margin-right:4%;width:22%;">
           <input matInput [matDatepicker]="picker" placeholder="Tanggal" formControlName="date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width:22%;">
+          <mat-label>Poliklinik</mat-label>
+          <mat-select formControlName="poli">
+            <mat-option>Semua</mat-option>
+            <mat-option *ngFor="let item of poliList" [value]="item.code">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </form>
 
@@ -57,8 +67,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row [ngClass]="row.has_kuis ? 'canClick' : cantClick" (click)="getData(row)"
-          *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </mat-card-content>
   </mat-card>

@@ -19,6 +19,10 @@ export class VisitorListComponent implements OnInit {
   displayedColumns: string[] = ['no', 'identityNumber', 'name', 'phone', 'poli', 'timestamp'];
   form: FormGroup;
   now: any;
+  poliList: Array<any> = [{
+    code: '',
+    name: 'Semua'
+  }]
 
   ngOnInit(): void {
     this.initForm();
@@ -27,7 +31,6 @@ export class VisitorListComponent implements OnInit {
     this.appService.visitorList.subscribe(value => {
       this.data = value;
       this.filteredData = value;
-      console.log(value)
     });
   }
 
@@ -35,8 +38,12 @@ export class VisitorListComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(''),
       identityNumber: new FormControl(''),
-      date: new FormControl()
+      date: new FormControl(),
+      poli: new FormControl('')
     });
+
+    this.poliList = this.appService.poliList
+
     setTimeout(()=> {
       this.form.get('date').setValue(new Date());
     }, 100)
@@ -62,25 +69,28 @@ export class VisitorListComponent implements OnInit {
         this.now = date && date._i ? (date._i.month+1) +'/'+ date._i.date+'/' + date._i.year : new Date().toLocaleDateString();
       }
     )
+
+    this.form.get('poli').valueChanges.subscribe(
+      () => {
+        this.search();
+      }
+    )
   }
 
   search () {
     let name = this.form.get('name').value
     let identityNumber = this.form.get('identityNumber').value
     let date = this.form.get('date').value
+    let poli = this.form.get('poli').value ? this.form.get('poli').value : ''
     let formatedDate = date && date._i ? (date._i.month+1) +'/'+ date._i.date+'/' + date._i.year : date.toLocaleDateString()
 
     this.filteredData = this.data.filter(item => { 
       return (
         item.identityNumber.toLowerCase().includes(identityNumber.toLowerCase()) && 
         item.fullName.toLowerCase().includes(name.toLowerCase()) &&
-        item.timestamp.includes(formatedDate)
+        item.timestamp.includes(formatedDate) &&
+        item.poli.code.includes(poli)
       )
     });
   }
-
-  getData(data: Visitor) {
-    console.log(data)
-  }
-
 }

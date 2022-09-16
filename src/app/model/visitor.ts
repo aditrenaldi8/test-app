@@ -4,7 +4,7 @@ export class Visitor {
   phone: string;
   birthDate: string;
   address: string;
-  poli: Object;
+  poli: Poli;
   reason: string;
   complaint: string;
   printed: Boolean;
@@ -22,4 +22,9 @@ export class Visitor {
     this.printed = false
     this.timestamp = data.timestamp || ''
   }
+}
+
+export class Poli {
+  code: string;
+  name: string;
 }

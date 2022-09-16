@@ -4,7 +4,7 @@ import { numberValidator } from "../../validators/number.validator"
 import { whitespaceValidator } from "../../validators/whitespace.validator"
 import { MatDialog} from "@angular/material/dialog";
 import { AppService } from "../../service/app.service";
-import { Visitor } from "../../model/visitor";
+import { Visitor, Poli } from "../../model/visitor";
 
 @Component({
   selector: 'app-input-visitor-details',
@@ -32,7 +32,6 @@ export class InputVisitorDetailsComponent implements OnInit {
 
     this.appService.visitorList.subscribe(value => {
       this.visitorListTemp = value;
-      console.log(value)
     });
   }
 
@@ -53,7 +52,7 @@ export class InputVisitorDetailsComponent implements OnInit {
     return data.date +'/' + (data.month+1) +'/' + data.year
   }
 
-  getPoli (data : string): Object {
+  getPoli (data : string): Poli {
     let value = this.poliList.find(item => item.code === data)
     return value
   }
